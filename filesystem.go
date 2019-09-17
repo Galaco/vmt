@@ -1,0 +1,102 @@
+package vmt
+
+import (
+	"errors"
+	keyvalues "github.com/galaco/KeyValues"
+	"github.com/golang-source-engine/filesystem"
+	"strings"
+)
+
+const (
+	materialRootDir = "materials/"
+	vmtExtension = ".vmt"
+)
+
+// FromFilesystem loads a material from filesystem
+// Its important to note this is the ONLY way to automatically
+// resolve `import` properties present in a vmt
+func FromFilesystem(filePath string, fs *filesystem.FileSystem, definition Material) (Material, error) {
+	// ensure proper file path
+	validatedPath := sanitizeFilePath(filePath)
+
+	kvs,err := readVmtFromFilesystem(validatedPath, fs)
+	if err != nil {
+		return nil, err
+	}
+
+	return FromKeyValues(kvs, definition)
+}
+
+func sanitizeFilePath(filePath string) string {
+	if !strings.HasPrefix(filePath, materialRootDir) {
+		filePath = materialRootDir + filePath
+	}
+
+	if !strings.HasSuffix(filePath, vmtExtension) {
+		filePath += vmtExtension
+	}
+
+	return filePath
+}
+
+
+func readVmtFromFilesystem(path string, fs *filesystem.FileSystem) (*keyvalues.KeyValue, error) {
+	kvs, err := readKeyValuesFromFilesystem(path, fs)
+	if err != nil {
+		return nil, err
+	}
+	roots, err := kvs.Children()
+	if err != nil {
+		return nil, err
+	}
+	root := roots[0]
+
+	include, err := root.Find("include")
+	if include != nil && err == nil {
+		includePath, _ := include.AsString()
+		root, err = mergeIncludedVmtRecursive(root, includePath, fs)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return root, nil
+}
+
+func mergeIncludedVmtRecursive(base *keyvalues.KeyValue, includePath string, fs *filesystem.FileSystem) (*keyvalues.KeyValue, error) {
+	parent, err := readKeyValuesFromFilesystem(includePath, fs)
+	if err != nil {
+		return base, errors.New("failed to read included vmt")
+	}
+	parents, _ := parent.Children()
+	result, err := base.Patch(parents[0])
+	if err != nil {
+		return base, errors.New("failed to merge included vmt")
+	}
+	include, err := result.Find("include")
+	if err == nil {
+		newIncludePath, _ := include.AsString()
+		if newIncludePath == includePath {
+			err = result.RemoveChild("include")
+			return &result, err
+		}
+		return mergeIncludedVmtRecursive(&result, newIncludePath, fs)
+	}
+	return &result, nil
+}
+
+
+// ReadKeyValues loads a keyvalues file.
+// Its just a simple wrapper that combines the KeyValues library and
+// the filesystem module.
+func readKeyValuesFromFilesystem(filePath string, fs *filesystem.FileSystem) (*keyvalues.KeyValue, error) {
+	stream, err := fs.GetFile(filePath)
+	if err != nil {
+		return nil, err
+	}
+
+	reader := keyvalues.NewReader(stream)
+	kvs, err := reader.Read()
+
+	return &kvs, err
+}

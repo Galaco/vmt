@@ -1,0 +1,25 @@
+LightmappedGeneric
+{
+	"$basetexture" "bioshock/water/water_foam"
+	"$translucent" "1"
+
+	$ebb "1.0" // ebb & flow of the water
+	$alpha 0.3
+
+	Proxies
+	{
+		Sine
+		{
+			"resultVar"	"$ebb"
+			"sineperiod" 6.5
+			"sinemin" -0.003
+			"sinemax" 0.003
+		}
+		TextureScroll
+		{
+			"texturescrollvar" "$basetexturetransform"
+			"texturescrollrate" "$ebb"
+			"texturescrollangle" 270.00
+		}
+	}
+}
