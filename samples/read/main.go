@@ -7,14 +7,14 @@ import (
 )
 
 func main() {
-	stream,err := os.Open("./sample.vmt")
+	stream, err := os.Open("./sample.vmt")
 	if err != nil {
 		panic(err)
 	}
 
 	var mat vmt.Material
 	mat = vmt.NewProperties()
-	mat,err = vmt.FromStream(stream, mat)
+	mat, err = vmt.FromStream(stream, mat)
 	if err != nil {
 		panic(err)
 	}

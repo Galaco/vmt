@@ -1,3 +1,9 @@
+[![GoDoc](https://godoc.org/github.com/golang-source-engine/vmt?status.svg)](https://godoc.org/github.com/golang-source-engine/vmt)
+[![Go report card](https://goreportcard.com/badge/github.com/golang-source-engine/vmt)](https://goreportcard.com/badge/github.com/golang-source-engine/vmt)
+[![GolangCI](https://golangci.com/badges/github.com/golang-source-engine/vmt.svg)](https://golangci.com)
+[![CircleCI](https://circleci.com/gh/golang-source-engine/vmt/tree/master.svg?style=svg)](https://circleci.com/gh/golang-source-engine/vmt/tree/master)
+[![codecov](https://codecov.io/gh/golang-source-engine/vmt/branch/master/graph/badge.svg)](https://codecov.io/gh/golang-source-engine/vmt)
+
 # vmt
 
 > Vmt is a parser for Valve Material Format (`.vmt`) files.

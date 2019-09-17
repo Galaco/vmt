@@ -9,7 +9,7 @@ import (
 
 const (
 	materialRootDir = "materials/"
-	vmtExtension = ".vmt"
+	vmtExtension    = ".vmt"
 )
 
 // FromFilesystem loads a material from filesystem
@@ -19,7 +19,7 @@ func FromFilesystem(filePath string, fs *filesystem.FileSystem, definition Mater
 	// ensure proper file path
 	validatedPath := sanitizeFilePath(filePath)
 
-	kvs,err := readVmtFromFilesystem(validatedPath, fs)
+	kvs, err := readVmtFromFilesystem(validatedPath, fs)
 	if err != nil {
 		return nil, err
 	}
@@ -38,7 +38,6 @@ func sanitizeFilePath(filePath string) string {
 
 	return filePath
 }
-
 
 func readVmtFromFilesystem(path string, fs *filesystem.FileSystem) (*keyvalues.KeyValue, error) {
 	kvs, err := readKeyValuesFromFilesystem(path, fs)
@@ -84,7 +83,6 @@ func mergeIncludedVmtRecursive(base *keyvalues.KeyValue, includePath string, fs 
 	}
 	return &result, nil
 }
-
 
 // ReadKeyValues loads a keyvalues file.
 // Its just a simple wrapper that combines the KeyValues library and

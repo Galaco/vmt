@@ -30,7 +30,7 @@ func unmarshalKeyvalues(kvs *keyvalues.KeyValue, definition Material) (mat Mater
 
 	fastMap, err := createKeyvalueFastMap(&root)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	fastMap["__SHADER_NAME__"] = keyvalues.NewKeyValuePair("__SHADER_NAME__", root.Key(), keyvalues.ValueString)
 
@@ -39,16 +39,16 @@ func unmarshalKeyvalues(kvs *keyvalues.KeyValue, definition Material) (mat Mater
 		if !ok {
 			continue
 		}
-		if kv,ok := fastMap[tag]; ok {
+		if kv, ok := fastMap[tag]; ok {
 			switch kv.Type() {
 			case keyvalues.ValueInt:
-				val,_ := kv.AsInt()
+				val, _ := kv.AsInt()
 				valueType.Field(i).SetInt(int64(val))
 			case keyvalues.ValueFloat:
-				val,_ := kv.AsFloat()
+				val, _ := kv.AsFloat()
 				valueType.Field(i).SetFloat(float64(val))
 			case keyvalues.ValueString:
-				val,_ := kv.AsString()
+				val, _ := kv.AsString()
 				valueType.Field(i).SetString(val)
 			default:
 			}
@@ -63,14 +63,14 @@ func createKeyvalueFastMap(kvs *keyvalues.KeyValue) (map[string]*keyvalues.KeyVa
 		return nil, ErrorMaterialKeyValuesEmpty
 	}
 
-	children,err := kvs.Children()
+	children, err := kvs.Children()
 	if err != nil {
 		return nil, err
 	}
 
 	fastmap := make(map[string]*keyvalues.KeyValue)
 
-	for _,c := range children {
+	for _, c := range children {
 		fastmap[c.Key()] = c
 	}
 
