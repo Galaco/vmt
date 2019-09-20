@@ -3,6 +3,7 @@ package vmt
 import (
 	keyvalues "github.com/galaco/KeyValues"
 	"reflect"
+	"strings"
 )
 
 // FromKeyValues builds a material from keyvalue definitions.
@@ -39,14 +40,29 @@ func unmarshalKeyvalues(kvs *keyvalues.KeyValue, definition Material) (mat Mater
 		if !ok {
 			continue
 		}
-		if kv, ok := fastMap[tag]; ok {
+		if kv, ok := fastMap[strings.ToLower(tag)]; ok {
 			switch kv.Type() {
-			case keyvalues.ValueInt:
-				val, _ := kv.AsInt()
-				valueType.Field(i).SetInt(int64(val))
-			case keyvalues.ValueFloat:
-				val, _ := kv.AsFloat()
-				valueType.Field(i).SetFloat(float64(val))
+			case keyvalues.ValueInt, keyvalues.ValueFloat:
+				{
+					switch valueType.Field(i).Interface().(type) {
+					case int:
+						if kv.Type() == keyvalues.ValueFloat {
+							val, _ := kv.AsInt()
+							valueType.Field(i).SetInt(int64(val))
+							continue
+						}
+						val, _ := kv.AsInt()
+						valueType.Field(i).SetInt(int64(val))
+					case float32, float64:
+						if kv.Type() == keyvalues.ValueInt {
+							val, _ := kv.AsFloat()
+							valueType.Field(i).SetFloat(float64(val))
+							continue
+						}
+						val, _ := kv.AsFloat()
+						valueType.Field(i).SetFloat(float64(val))
+					}
+				}
 			case keyvalues.ValueString:
 				val, _ := kv.AsString()
 				valueType.Field(i).SetString(val)
@@ -71,7 +87,7 @@ func createKeyvalueFastMap(kvs *keyvalues.KeyValue) (map[string]*keyvalues.KeyVa
 	fastmap := make(map[string]*keyvalues.KeyValue)
 
 	for _, c := range children {
-		fastmap[c.Key()] = c
+		fastmap[strings.ToLower(c.Key())] = c
 	}
 
 	return fastmap, nil

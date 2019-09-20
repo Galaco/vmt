@@ -10,7 +10,7 @@ type Properties struct {
 	BaseTexture string `vmt:"$basetexture"`
 	SurfaceProp string `vmt:"$surfaceprop"`
 	Detail      string `vmt:"$detail"`
-	Model       string `vmt:"$model"`
+	Model       int `vmt:"$model"`
 
 	// Adjustment
 	BaseTextureTransform string `vmt:"$basetexturetransform"`
@@ -29,7 +29,7 @@ type Properties struct {
 	Bumpmap          string `vmt:"$bumpmap"`
 	SSBump           string `vmt:"$ssbump"`
 	ParallaxMap      string `vmt:"$parallaxmap"`
-	Selfillum        string `vmt:"$selfillum"`
+	Selfillum        int `vmt:"$selfillum"`
 	LightwarpTexture string `vmt:"$lightwarptexture"`
 	HalfLambert      string `vmt:"$halflambert"`
 	AmbientOcclusion string `vmt:"$ambientocclusion"`
@@ -41,26 +41,26 @@ type Properties struct {
 	Envmap       string `vmt:"$envmap"`
 
 	// Optimization
-	IgnoreZ string `vmt:"$ignorez"`
+	IgnoreZ int `vmt:"$ignorez"`
 
 	// Texture Organization
 	CompileKeywords      string `vmt:"%keywords"`
-	CompileNoToolTexture string `vmt:"%notooltexture"`
+	CompileNoToolTexture int `vmt:"%notooltexture"`
 	CompileToolTexture   string `vmt:"%tooltexture"`
 
 	// Effect
 	TreeSway string `vmt:"$treeSway"`
-	NoFog    string `vmt:"$nofog"`
+	NoFog    int `vmt:"$nofog"`
 
 	// Misc
-	CompileClip        string `vmt:"%compileclip"`
-	CompileDetail      string `vmt:"%compiledetail"`
-	CompileLadder      string `vmt:"%compileladder"`
-	CompileNoDraw      string `vmt:"%compilenodraw"`
-	CompileNoLight     string `vmt:"%compilenolight"`
-	CompileNonSolid    string `vmt:"%compilenonsolid"`
-	CompilePassBullets string `vmt:"%compilepassbullets"`
-	CompileSkip        string `vmt:"%compileskip"`
+	CompileClip        int `vmt:"%compileclip"`
+	CompileDetail      int `vmt:"%compiledetail"`
+	CompileLadder      int `vmt:"%compileladder"`
+	CompileNoDraw      int `vmt:"%compilenodraw"`
+	CompileNoLight     int `vmt:"%compilenolight"`
+	CompileNonSolid    int `vmt:"%compilenonsolid"`
+	CompilePassBullets int `vmt:"%compilepassbullets"`
+	CompileSkip        int `vmt:"%compileskip"`
 
 	AllowDiffuseModulation string `vmt:"$allowdiffusemodulation"`
 
@@ -95,10 +95,10 @@ type Properties struct {
 
 	PointSampleMagFilter string `vmt:"$PointSampleMagFilter"`
 
-	VertexAlpha string `vmt:"$vertexalpha"`
-	VertexColor string `vmt:"$vertexcolor"`
+	VertexAlpha int `vmt:"$vertexalpha"`
+	VertexColor int `vmt:"$vertexcolor"`
 
-	WriteZ string `vmt:"$writeZ"`
+	WriteZ int `vmt:"$writeZ"`
 }
 
 func NewProperties() *Properties {

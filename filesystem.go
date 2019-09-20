@@ -1,7 +1,6 @@
 package vmt
 
 import (
-	"errors"
 	keyvalues "github.com/galaco/KeyValues"
 	"github.com/golang-source-engine/filesystem"
 	"strings"
@@ -40,15 +39,10 @@ func sanitizeFilePath(filePath string) string {
 }
 
 func readVmtFromFilesystem(path string, fs *filesystem.FileSystem) (*keyvalues.KeyValue, error) {
-	kvs, err := readKeyValuesFromFilesystem(path, fs)
+	root, err := readKeyValuesFromFilesystem(path, fs)
 	if err != nil {
 		return nil, err
 	}
-	roots, err := kvs.Children()
-	if err != nil {
-		return nil, err
-	}
-	root := roots[0]
 
 	include, err := root.Find("include")
 	if include != nil && err == nil {
@@ -65,12 +59,11 @@ func readVmtFromFilesystem(path string, fs *filesystem.FileSystem) (*keyvalues.K
 func mergeIncludedVmtRecursive(base *keyvalues.KeyValue, includePath string, fs *filesystem.FileSystem) (*keyvalues.KeyValue, error) {
 	parent, err := readKeyValuesFromFilesystem(includePath, fs)
 	if err != nil {
-		return base, errors.New("failed to read included vmt")
+		return base, err
 	}
-	parents, _ := parent.Children()
-	result, err := base.Patch(parents[0])
+	result, err := base.Patch(parent)
 	if err != nil {
-		return base, errors.New("failed to merge included vmt")
+		return base, err
 	}
 	include, err := result.Find("include")
 	if err == nil {
