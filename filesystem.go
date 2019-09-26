@@ -2,7 +2,7 @@ package vmt
 
 import (
 	keyvalues "github.com/galaco/KeyValues"
-	"github.com/golang-source-engine/filesystem"
+	"io"
 	"strings"
 )
 
@@ -11,10 +11,14 @@ const (
 	vmtExtension    = ".vmt"
 )
 
+type virtualFilesystem interface {
+	GetFile(string) (io.Reader, error)
+}
+
 // FromFilesystem loads a material from filesystem
 // Its important to note this is the ONLY way to automatically
 // resolve `import` properties present in a vmt
-func FromFilesystem(filePath string, fs *filesystem.FileSystem, definition Material) (Material, error) {
+func FromFilesystem(filePath string, fs virtualFilesystem, definition Material) (Material, error) {
 	// ensure proper file path
 	validatedPath := sanitizeFilePath(filePath)
 
@@ -38,7 +42,7 @@ func sanitizeFilePath(filePath string) string {
 	return filePath
 }
 
-func readVmtFromFilesystem(path string, fs *filesystem.FileSystem) (*keyvalues.KeyValue, error) {
+func readVmtFromFilesystem(path string, fs virtualFilesystem) (*keyvalues.KeyValue, error) {
 	root, err := readKeyValuesFromFilesystem(path, fs)
 	if err != nil {
 		return nil, err
@@ -56,7 +60,7 @@ func readVmtFromFilesystem(path string, fs *filesystem.FileSystem) (*keyvalues.K
 	return root, nil
 }
 
-func mergeIncludedVmtRecursive(base *keyvalues.KeyValue, includePath string, fs *filesystem.FileSystem) (*keyvalues.KeyValue, error) {
+func mergeIncludedVmtRecursive(base *keyvalues.KeyValue, includePath string, fs virtualFilesystem) (*keyvalues.KeyValue, error) {
 	parent, err := readKeyValuesFromFilesystem(includePath, fs)
 	if err != nil {
 		return base, err
@@ -80,7 +84,7 @@ func mergeIncludedVmtRecursive(base *keyvalues.KeyValue, includePath string, fs 
 // ReadKeyValues loads a keyvalues file.
 // Its just a simple wrapper that combines the KeyValues library and
 // the filesystem module.
-func readKeyValuesFromFilesystem(filePath string, fs *filesystem.FileSystem) (*keyvalues.KeyValue, error) {
+func readKeyValuesFromFilesystem(filePath string, fs virtualFilesystem) (*keyvalues.KeyValue, error) {
 	stream, err := fs.GetFile(filePath)
 	if err != nil {
 		return nil, err
