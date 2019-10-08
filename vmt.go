@@ -10,7 +10,7 @@ type Properties struct {
 	BaseTexture string `vmt:"$basetexture"`
 	SurfaceProp string `vmt:"$surfaceprop"`
 	Detail      string `vmt:"$detail"`
-	Model       int `vmt:"$model"`
+	Model       int    `vmt:"$model"`
 
 	// Adjustment
 	BaseTextureTransform string `vmt:"$basetexturetransform"`
@@ -29,7 +29,7 @@ type Properties struct {
 	Bumpmap          string `vmt:"$bumpmap"`
 	SSBump           string `vmt:"$ssbump"`
 	ParallaxMap      string `vmt:"$parallaxmap"`
-	Selfillum        int `vmt:"$selfillum"`
+	Selfillum        int    `vmt:"$selfillum"`
 	LightwarpTexture string `vmt:"$lightwarptexture"`
 	HalfLambert      string `vmt:"$halflambert"`
 	AmbientOcclusion string `vmt:"$ambientocclusion"`
@@ -45,12 +45,12 @@ type Properties struct {
 
 	// Texture Organization
 	CompileKeywords      string `vmt:"%keywords"`
-	CompileNoToolTexture int `vmt:"%notooltexture"`
+	CompileNoToolTexture int    `vmt:"%notooltexture"`
 	CompileToolTexture   string `vmt:"%tooltexture"`
 
 	// Effect
 	TreeSway string `vmt:"$treeSway"`
-	NoFog    int `vmt:"$nofog"`
+	NoFog    int    `vmt:"$nofog"`
 
 	// Misc
 	CompileClip        int `vmt:"%compileclip"`
