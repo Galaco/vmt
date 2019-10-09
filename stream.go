@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-// FromKeyValues builds a material from a data stream.
+// FromStream builds a material from a data stream.
 // Please note that `include` keys cannot be automatically resolved
 // using this method of parsing. In many cases it would be better to
 // pass use FromFilesystem.
