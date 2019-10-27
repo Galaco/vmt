@@ -1,5 +1,8 @@
 package vmt
 
+// Properties is an example material that contains all known
+// material properties. This should be updated as more properties are added
+// or discovered in games.
 type Properties struct {
 	// ShaderName is special, as it is the only property where
 	// the value we want is the key itself. __SHADER_NAME__ is a custom
@@ -102,6 +105,7 @@ type Properties struct {
 	WriteZ int `vmt:"$writeZ"`
 }
 
+// NewProperties returns *Properties
 func NewProperties() *Properties {
 	return &Properties{}
 }
