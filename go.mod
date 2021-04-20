@@ -1,4 +1,4 @@
-module github.com/golang-source-engine/vmt
+module github.com/galaco/vmt
 
 go 1.13
 
