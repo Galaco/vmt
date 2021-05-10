@@ -1,8 +1,8 @@
-[![GoDoc](https://godoc.org/github.com/golang-source-engine/vmt?status.svg)](https://godoc.org/github.com/golang-source-engine/vmt)
-[![Go report card](https://goreportcard.com/badge/github.com/golang-source-engine/vmt)](https://goreportcard.com/badge/github.com/golang-source-engine/vmt)
-[![GolangCI](https://golangci.com/badges/github.com/golang-source-engine/vmt.svg)](https://golangci.com)
-[![CircleCI](https://circleci.com/gh/golang-source-engine/vmt/tree/master.svg?style=svg)](https://circleci.com/gh/golang-source-engine/vmt/tree/master)
-[![codecov](https://codecov.io/gh/golang-source-engine/vmt/branch/master/graph/badge.svg)](https://codecov.io/gh/golang-source-engine/vmt)
+[![GoDoc](https://godoc.org/github.com/galaco/vmt?status.svg)](https://godoc.org/github.com/galaco/vmt)
+[![Go report card](https://goreportcard.com/badge/github.com/galaco/vmt)](https://goreportcard.com/badge/github.com/galaco/vmt)
+[![GolangCI](https://golangci.com/badges/github.com/galaco/vmt.svg)](https://golangci.com)
+[![CircleCI](https://circleci.com/gh/galaco/vmt/tree/master.svg?style=svg)](https://circleci.com/gh/galaco/vmt/tree/master)
+[![codecov](https://codecov.io/gh/galaco/vmt/branch/master/graph/badge.svg)](https://codecov.io/gh/galaco/vmt)
 
 # vmt
 
