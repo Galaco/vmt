@@ -1,9 +1,10 @@
 package vmt
 
 import (
-	keyvalues "github.com/galaco/KeyValues"
 	"reflect"
 	"strings"
+
+	keyvalues "github.com/galaco/KeyValues"
 )
 
 // FromKeyValues builds a material from keyvalue definitions.

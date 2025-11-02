@@ -1,9 +1,10 @@
 package vmt
 
 import (
-	keyvalues "github.com/galaco/KeyValues"
 	"io"
 	"strings"
+
+	keyvalues "github.com/galaco/KeyValues"
 )
 
 const (

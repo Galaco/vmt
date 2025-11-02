@@ -10,10 +10,11 @@ type Properties struct {
 	ShaderName string `vmt:"__SHADER_NAME__"`
 
 	// Basics
-	BaseTexture string `vmt:"$basetexture"`
-	SurfaceProp string `vmt:"$surfaceprop"`
-	Detail      string `vmt:"$detail"`
-	Model       int    `vmt:"$model"`
+	BaseTexture  string `vmt:"$basetexture"`
+	BaseTexture2 string `vmt:"$basetexture2"`
+	SurfaceProp  string `vmt:"$surfaceprop"`
+	Detail       string `vmt:"$detail"`
+	Model        int    `vmt:"$model"`
 
 	// Adjustment
 	BaseTextureTransform string `vmt:"$basetexturetransform"`

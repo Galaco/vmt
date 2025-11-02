@@ -1,8 +1,9 @@
 package vmt
 
 import (
-	keyvalues "github.com/galaco/KeyValues"
 	"io"
+
+	keyvalues "github.com/galaco/KeyValues"
 )
 
 // FromStream builds a material from a data stream.
